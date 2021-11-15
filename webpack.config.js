@@ -16,7 +16,32 @@ module.exports = env => ({
    devServer: {
       static: './dist'
    },
-   stats: {
-      preset: 'errors-warnings'
+   stats: 'errors-warnings',
+   module: {
+      rules: [
+         {
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
+         },
+         {
+            test: /\.s[ac]ss$/,
+            use: ['style-loader', 'css-loader', 'sass-loader']
+         },
+         {
+            test: /\.(png|svg|jpg|jpeg|gif)$/i,
+            type: 'asset/resource'
+         },
+         {
+            test: /\.ts?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/
+         }
+      ]
+   },
+   resolve: {
+      alias: {
+         '@': path.resolve(__dirname, './src')
+      },
+      extensions: ['.ts', '.js']
    }
 })

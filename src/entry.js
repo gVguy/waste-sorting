@@ -1,5 +1,4 @@
-const app = document.createElement('div')
-
-app.innerHTML = '<h1>Hi</h1>'
+import app from '@/app.ts'
+import '@/styles/main.scss'
 
 document.body.append(app)
