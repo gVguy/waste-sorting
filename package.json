@@ -1,0 +1,17 @@
+{
+   "name": "platinum",
+   "version": "1.0.0",
+   "description": "test app for platinum",
+   "main": "index.js",
+   "scripts": {
+      "serve": "webpack serve",
+      "build": "webpack build"
+   },
+   "author": "Ivan Che",
+   "license": "ISC",
+   "devDependencies": {
+      "html-webpack-plugin": "^5.5.0",
+      "webpack": "^5.64.0",
+      "webpack-dev-server": "^4.5.0"
+   }
+}
