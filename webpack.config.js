@@ -7,9 +7,13 @@ const CleanTerminalPlugin = require('clean-terminal-webpack-plugin')
 module.exports = env => ({
    mode: env.production ? 'production' : 'development',
    entry: './src/entry.js',
-   plugins: [new HtmlWebpackPlugin(), new CleanTerminalPlugin()],
+   plugins: [
+      new HtmlWebpackPlugin({ title: 'Waste sorting' }),
+      new CleanTerminalPlugin()
+   ],
    output: {
       path: path.resolve(__dirname, './dist'),
+      publicPath: './',
       clean: true
    },
    devtool: 'inline-source-map',

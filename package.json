@@ -1,7 +1,7 @@
 {
-   "name": "platinum",
+   "name": "waste-sorting",
    "version": "1.0.0",
-   "description": "webpack app",
+   "description": "a waste sorting game",
    "main": "src/entry.js",
    "scripts": {
       "serve": "webpack serve",

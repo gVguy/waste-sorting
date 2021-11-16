@@ -15,3 +15,12 @@ export function el(e: string, qSelector?: string): HTMLElement {
    }
    return el
 }
+
+// creates element with NS - for svg
+export function elNS(tag: string, attrs?: object) {
+   const el = document.createElementNS('http://www.w3.org/2000/svg', tag)
+   for (let [attr, value] of Object.entries(attrs)) {
+      el.setAttributeNS(null, attr, value)
+   }
+   return el
+}

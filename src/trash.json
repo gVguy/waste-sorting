@@ -1,0 +1,34 @@
+[
+   {
+      "name": "plastic-bottle",
+      "type": "plastic"
+   },
+   {
+      "name": "large-plastic-bottle",
+      "type": "plastic"
+   },
+   {
+      "name": "glass-bottle",
+      "type": "glass"
+   },
+   {
+      "name": "bong",
+      "type": "glass"
+   },
+   {
+      "name": "metal-can",
+      "type": "metal"
+   },
+   {
+      "name": "wrench",
+      "type": "metal"
+   },
+   {
+      "name": "paper-cup",
+      "type": "paper"
+   },
+   {
+      "name": "paper-plane",
+      "type": "paper"
+   }
+]

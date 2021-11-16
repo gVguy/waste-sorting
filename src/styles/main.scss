@@ -1,7 +1,10 @@
-$green: #27c289;
-$pink: #821f4c;
+$purple: #a31a66;
+$lightpurple: #b5558a;
 
-%center {
+$tablet: 768px;
+$mobile: 425px;
+
+%flex-center {
    display: flex;
    justify-content: center;
    align-items: center;
@@ -15,17 +18,293 @@ body {
 #app {
    width: 100%;
    height: 100vh;
-   @extend %center;
+   min-height: 520px;
+   @extend %flex-center;
    flex-direction: column;
+   font-family: sans-serif;
+   overflow: hidden;
 }
 
-h1 {
-   color: $green;
-   text-shadow: 1px 1px $pink, 2px 2px $pink;
+.upper-container {
+   @extend %flex-center;
+   @media (max-width: $tablet) {
+      flex-wrap: wrap;
+   }
 }
 
-.img {
-   width: 200px;
-   height: 292px;
-   background: url('@/assets/image.jpg');
+.counter {
+   @extend %flex-center;
+   color: white;
+   height: 50px;
+   border-radius: 25px;
+   width: 130px;
+   @media (max-width: $tablet) {
+      margin: 20px;
+   }
+   @media (max-width: 340px) {
+      margin: 20px 5px;
+   }
+   &.correct {
+      background-color: lightgreen;
+      .counter-content {
+         background-image: url('@/assets/ok.png');
+         padding-left: 45px;
+      }
+   }
+   &.wrong {
+      background-color: indianred;
+      .counter-content {
+         background-image: url('@/assets/no.png');
+         padding-left: 38px;
+      }
+   }
+   .counter-content {
+      font-size: 35px;
+      background-position: left center;
+      background-repeat: no-repeat;
+      transition: transform 0.2s;
+   }
+   &.add .counter-content {
+      transform: scale(1.2);
+      transition: transform 0.05s;
+   }
+}
+
+.timer-wrapper {
+   margin: 20px 100px;
+   @extend %flex-center;
+   @media (max-width: $tablet) {
+      margin: 20px 0;
+      order: 3;
+      width: 100%;
+   }
+   @media (max-height: 620px) {
+      margin: 0 0 30px 0;
+   }
+   .timer-container {
+      height: 150px;
+      width: 150px;
+      position: relative;
+      @media (max-width: $tablet) and (orientation: portrait) {
+         width: 200px;
+         height: 200px;
+      }
+      & > div,
+      & > svg {
+         width: 100%;
+         height: 100%;
+         @extend %flex-center;
+         position: absolute;
+         top: 0;
+         left: 0;
+      }
+      .new-game {
+         background: $purple;
+         cursor: pointer;
+         color: white;
+         border-radius: 50%;
+         transition: 0.3s;
+         font-size: 34px;
+         &:hover {
+            background-color: $lightpurple;
+         }
+      }
+      &.active {
+         .new-game {
+            opacity: 0;
+            cursor: default;
+         }
+      }
+      .timer {
+         transform: rotateY(180deg) rotateZ(270deg);
+         transform-origin: center;
+         .indicator {
+            fill: none;
+            stroke-linecap: round;
+            stroke-width: 10px;
+            stroke: $purple;
+            &.hurry {
+               animation: blink 1s linear infinite;
+            }
+            @keyframes blink {
+               0% {
+                  opacity: 1;
+               }
+               50% {
+                  opacity: 0.3;
+               }
+               100% {
+                  opacity: 1;
+               }
+            }
+         }
+         .backdrop {
+            fill: none;
+            stroke-width: 10px;
+            stroke: lightgrey;
+         }
+      }
+      #feedback-container {
+         @extend %flex-center;
+         .feedback {
+            position: absolute;
+            opacity: 0;
+            width: 80px;
+            height: 80px;
+            border-radius: 50px;
+            background-position: center;
+            background-repeat: no-repeat;
+            animation: 0.8s showfeedback;
+            &.correct {
+               background-color: lightgreen;
+               background-image: url('@/assets/ok.png');
+            }
+            &.wrong {
+               background-color: indianred;
+               background-image: url('@/assets/no.png');
+               animation-timing-function: cubic-bezier(0.75, 0.15, 0.65, 1.85);
+            }
+            @keyframes showfeedback {
+               0% {
+                  opacity: 0;
+                  transform: scale(0.5);
+               }
+               50% {
+                  opacity: 1;
+                  transform: scale(1);
+               }
+               60% {
+                  opacity: 1;
+                  transform: scale(1);
+               }
+               100% {
+                  opacity: 0;
+                  transform: scale(0.5);
+               }
+            }
+         }
+      }
+   }
+}
+
+.wasteboxes-container {
+   @extend %flex-center;
+   @media (max-height: 620px) {
+      margin-top: -100px;
+   }
+   .wastebox {
+      @extend %flex-center;
+      flex-direction: column;
+      perspective: 1000px;
+      perspective-origin: center;
+      transform-style: preserve-3d;
+      width: 25vw;
+      margin: 10px;
+      max-width: 200px;
+      %background {
+         background-size: 100% auto;
+         background-repeat: no-repeat;
+         background-position: top;
+      }
+      .box {
+         @extend %background;
+         @extend %flex-center;
+         width: 200px;
+         height: 220px;
+         position: relative;
+         color: white;
+         user-select: none;
+      }
+      .top {
+         @extend %background;
+         @extend %flex-center;
+         align-items: flex-start;
+         width: 160px;
+         height: 80px;
+         background-size: 100% auto;
+         transform: translateZ(-77px) translateY(-5px) rotateX(-95deg);
+         transform-origin: bottom;
+         transition: transform 0.3s;
+         transform-style: preserve-3d;
+         .topper {
+            transform: rotateX(90deg) translate3d(0, -15px, -10px);
+            transform-origin: top;
+            background: red;
+            width: 153px;
+            height: 15px;
+            position: relative;
+            border-radius: 15px 15px 0 0;
+         }
+      }
+      &.sneak {
+         cursor: pointer;
+         .top {
+            transform: translateZ(-77px) translateY(-5px) rotateX(-80deg);
+         }
+      }
+      &.omnomnom {
+         .top {
+            transform: translateZ(-77px) translateY(-5px) rotateX(-20deg);
+         }
+      }
+      // trash appended to the box
+      .trash {
+         z-index: auto;
+         top: 0;
+         left: 50%;
+         margin-left: -50px;
+         transform: translateZ(-1px);
+         &.drop {
+            animation: drop 0.3s forwards;
+         }
+         @keyframes drop {
+            0% {
+               transform: translate3d(0, 0, -1px);
+            }
+            100% {
+               transform: translate3d(0, 100px, -1px);
+            }
+         }
+      }
+   }
+}
+
+.trash {
+   position: absolute;
+   z-index: 100;
+   width: 100px;
+   height: 100px;
+   background-repeat: no-repeat;
+   background-position: center;
+   border-radius: 50%;
+   background-color: white;
+   @extend %flex-center;
+   animation: appear 0.3s forwards;
+   @keyframes appear {
+      0% {
+         opacity: 0;
+         transform: scale(0.5);
+      }
+      100% {
+         opacity: 1;
+         transform: scale(1);
+      }
+   }
+   &.disappear {
+      animation: disappear 0.3s forwards;
+   }
+   @keyframes disappear {
+      0% {
+         opacity: 1;
+         transform: scale(1) rotate(0);
+      }
+      100% {
+         opacity: 0;
+         transform: scale(0.5) rotate(270);
+      }
+   }
+   &.flying {
+      animation: none;
+      transition: transform 0.3s;
+   }
 }
