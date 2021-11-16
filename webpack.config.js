@@ -16,7 +16,7 @@ module.exports = env => ({
       publicPath: './',
       clean: true
    },
-   devtool: 'inline-source-map',
+   devtool: env.production ? false : 'inline-source-map',
    devServer: {
       static: './dist'
    },
